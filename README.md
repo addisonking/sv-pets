@@ -7,7 +7,7 @@ could be cool
 ex:
 ```svelte
 <script lang="ts">
-  import { Nest } from 'sv-pets'
+	import { Nest } from 'sv-pets'
 </script>
 
 <div class="container">
