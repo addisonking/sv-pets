@@ -12,8 +12,6 @@
 		"format": "prettier --write .",
 		"lint": "prettier --check . && eslint ."
 	},
-	"main": "./dist/index.js",
-	"module": "./dist/index.js",
 	"files": [
 		"dist",
 		"!dist/**/*.test.*",
