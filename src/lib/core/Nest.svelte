@@ -3,7 +3,11 @@
 	import type { AnimalState, AnimalBehavior } from '../types';
 	import { onMount } from 'svelte';
 
-	let { animal = 'fox', size = 48, initialState = 'idle' }: { animal: string; size?: number; initialState?: AnimalState } = $props();
+	let {
+		animal = 'fox',
+		size = 48,
+		initialState = 'idle'
+	}: { animal: string; size?: number; initialState?: AnimalState } = $props();
 
 	let nestEl: HTMLDivElement;
 	let animalEl: HTMLDivElement;
@@ -24,7 +28,7 @@
 	// Behavior map per animal
 	const behaviors: Record<string, AnimalBehavior> = {
 		fox: { canJump: true, canSleep: true },
-		turtle: { canJump: false, canSleep: false },
+		turtle: { canJump: false, canSleep: false }
 	};
 
 	const animalBehavior = behaviors[animal] ?? {};
@@ -45,14 +49,12 @@
 		}
 
 		// Sleep only if supported and has 'lie' animation
-		if (action === 'sleep' && (!animalBehavior.canSleep)) {
+		if (action === 'sleep' && !animalBehavior.canSleep) {
 			action = 'stop';
 		}
 
 		// Update state
-		currentState = action === 'walk' ? 'walk' :
-			action === 'sleep' ? 'lie' :
-			'idle';
+		currentState = action === 'walk' ? 'walk' : action === 'sleep' ? 'lie' : 'idle';
 
 		// Random jump if allowed
 		if (action === 'walk' && onGround && animalBehavior.canJump && Math.random() < 0.3) {
@@ -97,7 +99,7 @@
 		Object.assign(animalEl.style, {
 			left: `${x}px`,
 			top: `${y}px`,
-			transform: `scaleX(${facingRight ? 1 : -1})`,
+			transform: `scaleX(${facingRight ? 1 : -1})`
 		});
 
 		requestAnimationFrame(animate);
