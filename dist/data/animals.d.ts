@@ -1,3 +1,3 @@
 export declare const animals: {
-    fox: import("../types").AnimalSprite;
+	fox: import('../types').AnimalSprite;
 };
