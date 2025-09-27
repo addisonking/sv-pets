@@ -1,13 +1,15 @@
 import type { AnimalBehavior, AnimalSprite } from '$lib/types';
+import idleGif from '$lib/assets/animals/fox/idle.gif';
+import walkGif from '$lib/assets/animals/fox/walk.gif';
+import swipeGif from '$lib/assets/animals/fox/swipe.gif';
+import lieGif from '$lib/assets/animals/fox/lie.gif';
 
 export const fox: { sprites: AnimalSprite; behavior: AnimalBehavior } = {
 	sprites: {
-		idle: 'https://raw.githubusercontent.com/tonybaloney/vscode-pets/refs/heads/main/media/fox/red_idle_8fps.gif',
-		walk: 'https://raw.githubusercontent.com/tonybaloney/vscode-pets/refs/heads/main/media/fox/red_walk_8fps.gif',
-		run: 'https://raw.githubusercontent.com/tonybaloney/vscode-pets/refs/heads/main/media/fox/red_run_8fps.gif',
-		lie: 'https://raw.githubusercontent.com/tonybaloney/vscode-pets/refs/heads/main/media/fox/red_lie_8fps.gif',
-		swipe:
-			'https://raw.githubusercontent.com/tonybaloney/vscode-pets/refs/heads/main/media/fox/red_swipe_8fps.gif'
+		idle: idleGif,
+		walk: walkGif,
+		swipe: swipeGif,
+		lie: lieGif
 	},
 	behavior: {
 		canJump: true,
