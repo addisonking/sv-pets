@@ -11,7 +11,8 @@ export interface AnimalSprite {
 export interface AnimalBehavior {
 	canJump?: boolean;
 	canSleep?: boolean;
-	actionProbabilities?: Partial<Record<'walk' | 'stop' | 'sleep', number>>;
+	canRun?: boolean;
+	actionProbabilities?: Partial<Record<'walk' | 'stop' | 'sleep' | 'run', number>>;
 }
 
 export interface AnimalData {

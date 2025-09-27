@@ -10,10 +10,7 @@
 	let animalEl: HTMLDivElement;
 
 	let currentState: AnimalState = $state('idle');
-	let x = 0,
-		y = 0,
-		vx = 2,
-		vy = 0;
+	let x = 0, y = 0, vx = 2, vy = 0;
 	let onGround = true;
 	let facingRight = true;
 
@@ -21,24 +18,23 @@
 	const JUMP_STRENGTH = size / 4;
 	const ACTION_INTERVAL = [1500, 3500];
 
+	// Get animal data
 	const animalData = animals[animal];
-
-	if (!animalData) {
-		throw new Error(`No data found for animal: ${animal}`);
-	}
-
+	if (!animalData) throw new Error(`No data found for animal: ${animal}`);
 	const { sprites, behavior } = animalData;
 
 	const actionToState: Record<string, AnimalState> = {
 		walk: 'walk',
+		run: 'run',
 		stop: 'idle',
 		sleep: behavior.canSleep ? 'lie' : 'idle'
 	};
 
 	let action: keyof typeof actionToState = 'stop';
 
+	// Decide next action randomly
 	function decideNextAction() {
-		const probs = behavior.actionProbabilities ?? { walk: 0.5, stop: 0.4, sleep: 0.1 };
+		const probs = behavior.actionProbabilities ?? { walk: 0.5, run: 0.2, stop: 0.2, sleep: 0.1 };
 		const r = Math.random();
 		let cumulative = 0;
 
@@ -52,7 +48,7 @@
 
 		currentState = actionToState[action];
 
-		if (action === 'walk' && onGround && behavior.canJump && Math.random() < 0.3) {
+		if ((action === 'walk' || action === 'run') && onGround && behavior.canJump && Math.random() < 0.3) {
 			vy = -JUMP_STRENGTH;
 			onGround = false;
 			currentState = 'swipe';
@@ -62,21 +58,30 @@
 		setTimeout(decideNextAction, min + Math.random() * (max - min));
 	}
 
+	// Animation loop
 	function animate() {
 		if (!nestEl || !animalEl) return;
 
 		const { width: containerWidth, height: containerHeight } = nestEl.getBoundingClientRect();
 		const { offsetWidth: animalWidth, offsetHeight: animalHeight } = animalEl;
 
-		if (action === 'walk') {
-			x += vx;
-			if (x + animalWidth > containerWidth || x < 0) {
-				vx = -vx;
-				x += vx;
+		// Horizontal speed based on action
+		const speed = action === 'run' ? vx * 2 : vx;
+
+		if (action === 'walk' || action === 'run') {
+			x += facingRight ? speed : -speed;
+
+			// Bounce at edges
+			if (x + animalWidth > containerWidth) {
+				x = containerWidth - animalWidth;
+				facingRight = false;
+			} else if (x < 0) {
+				x = 0;
+				facingRight = true;
 			}
-			facingRight = vx > 0;
 		}
 
+		// Vertical movement / gravity
 		if (!onGround) {
 			vy += GRAVITY;
 			y += vy;
