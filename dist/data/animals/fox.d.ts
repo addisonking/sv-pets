@@ -1,2 +1,3 @@
-import type { AnimalSprite } from '../../types';
-export declare const fox: AnimalSprite;
+import type { AnimalData } from '../../types';
+declare const fox: AnimalData;
+export default fox;

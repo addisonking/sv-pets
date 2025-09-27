@@ -1,21 +1,20 @@
 <script lang="ts">
-	import type { AnimalState } from '../types';
-	import { animals } from '../data/animals';
+	import type { AnimalState, AnimalSprite } from '../types';
 
 	let {
-		animal = 'fox',
+		size = 48,
 		state = 'idle',
-		size = 48
-	}: { animal: string; state: AnimalState; size?: number } = $props();
+		sprites
+	}: { size?: number; state: AnimalState; sprites?: AnimalSprite } = $props();
 
-	const getSprite = (animal: string, state: AnimalState): string => {
-		const frames = animals[animal as keyof typeof animals]?.[state];
-
+	const getSprite = (s: AnimalState): string => {
+		if (!sprites) return '';
+		const frames = sprites[s];
 		return Array.isArray(frames) ? frames[0] : (frames ?? '');
 	};
 </script>
 
-<img src={getSprite(animal, state)} alt="{animal} - {state}" width={size} height={size} />
+<img src={getSprite(state)} alt={state} width={size} height={size} />
 
 <style>
 	img {

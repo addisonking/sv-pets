@@ -1,9 +1,9 @@
-import type { AnimalState } from '../types';
+import type { AnimalState, AnimalSprite } from '../types';
 type $$ComponentProps = {
-	animal: string;
-	state: AnimalState;
-	size?: number;
+    size?: number;
+    state: AnimalState;
+    sprites?: AnimalSprite;
 };
-declare const Animal: import('svelte').Component<$$ComponentProps, {}, ''>;
+declare const Animal: import("svelte").Component<$$ComponentProps, {}, "">;
 type Animal = ReturnType<typeof Animal>;
 export default Animal;
