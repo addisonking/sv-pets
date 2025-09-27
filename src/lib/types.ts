@@ -13,3 +13,8 @@ export interface AnimalBehavior {
 	canSleep?: boolean;
 	actionProbabilities?: Partial<Record<'walk' | 'stop' | 'sleep', number>>;
 }
+
+export interface AnimalData {
+	sprites: AnimalSprite;
+	behavior: AnimalBehavior;
+}

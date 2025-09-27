@@ -21,7 +21,7 @@
 	const JUMP_STRENGTH = size / 4;
 	const ACTION_INTERVAL = [1500, 3500];
 
-	const animalData = animals[animal as keyof typeof animals];
+	const animalData = animals[animal];
 
 	if (!animalData) {
 		throw new Error(`No data found for animal: ${animal}`);
